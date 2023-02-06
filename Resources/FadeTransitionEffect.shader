@@ -1,4 +1,4 @@
-Shader "Hidden/BloopWipeTransitionEffect"
+﻿Shader "Hidden/BloopFadeTransitionEffect"
 {
     Properties
     {
@@ -46,16 +46,7 @@ Shader "Hidden/BloopWipeTransitionEffect"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = _Color;
-
-                //Wipe
-                //todo: I can write this without an if using a max in a clever way i bet.
-                if((i.uv.x) > (_Lerp))
-                {
-                    col = tex2D(_MainTex, i.uv);
-                }
-                
-                return col;
+                return lerp(tex2D(_MainTex, i.uv),_Color,_Lerp);
             }
             ENDCG
         }

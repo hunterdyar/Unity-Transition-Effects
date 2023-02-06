@@ -23,6 +23,8 @@ namespace Blooper.TransitionEffects
 						return "Hidden/BloopWipeVerticalTransitionEffect";
 					case TransitionType.CircleWipe:
 						return "Hidden/BloopCircleTransitionEffect";
+					case TransitionType.Fade:
+						return "Hidden/BloopFadeTransitionEffect";
 					case TransitionType.HorizontalWipe:
 					default:
 						return "Hidden/BloopWipeTransitionEffect";

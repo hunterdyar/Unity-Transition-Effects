@@ -4,6 +4,7 @@
 	{
 		HorizontalWipe,
 		VerticalWipe,
-		CircleWipe
+		CircleWipe,
+		Fade
 	}
 }
