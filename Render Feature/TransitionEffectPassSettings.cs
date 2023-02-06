@@ -7,12 +7,12 @@ namespace Blooper.TransitionEffects
 	public class TransitionEffectPassSettings
 	{
 		[HideInInspector] public FilterMode FilterMode = FilterMode.Bilinear; //In my testing, this doesn't have an effect. Because we are doing it at screen-resolution, by definition, there's no sampling anyway.
-			public TransitionType transitionType;
-
-			[Tooltip("0 has The scene completely visible. 1 Has the transition effect completely obscuring the scene.")] [Range(0, 1)]
-			public float transition;
-
-			public Color Color; //Luckily, black is already a pretty good default value :p
+		
+		public bool Active = true;
+		public TransitionType transitionType;
+		[Tooltip("0 has The scene completely visible. 1 Has the transition effect completely obscuring the scene.")] [Range(0, 1)]
+		public float transition;
+		public Color Color; //Luckily, black is already a pretty good default value :p
 
 			// ...
 			public string GetShaderName()

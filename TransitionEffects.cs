@@ -9,38 +9,12 @@ public class TransitionEffects : MonoBehaviour
 {
     private static TransitionRenderFeature _transition;
     
-    public static IEnumerator WipeLeftToRight(float delayBeforeStart,float time, Color color)
+    public static IEnumerator TransitionOutToColor(TransitionType type, float delayBeforeStart, float time, Color color)
     {
         LazyGetRenderFeature();
-        
-        _transition.SetTransition(0);
-        yield return new WaitForSeconds(delayBeforeStart);
-        
+        _transition.SetActive(true);
         float t = 0;
-        while (t < 1)
-        {
-            _transition.SetTransition(t);
-            t += Time.deltaTime / time;
-            yield return null;
-        }
-        _transition.SetTransition(1);
-        yield return null;
-        
-        while (t >0)
-        {
-            _transition.SetTransition(t);
-            t -= Time.deltaTime / time;
-            yield return null;
-        }
-
-        _transition.SetTransition(0);
-    }
-
-    public static IEnumerator CircleWipeIn(float delayBeforeStart, float time, Color color)
-    {
-        LazyGetRenderFeature();
-
-        float t = 0;
+        _transition.SetTransitionType(type);
         _transition.SetTransition(0);
         yield return new WaitForSeconds(delayBeforeStart);
         while (t < 1)
@@ -53,10 +27,13 @@ public class TransitionEffects : MonoBehaviour
         _transition.SetTransition(1);
     }
     
-    public static IEnumerator CircleWipeOut(float delayBeforeStart, float time, Color color)
+    /// <summary>
+    /// Transitions from completely covered by the transition to the scene.
+    /// </summary>
+    public static IEnumerator TransitionInToScene(float delayBeforeStart, float time, Color color)
     {
         LazyGetRenderFeature();
-
+        _transition.SetActive(true);
         float t = 1;
         _transition.SetTransition(1);
         yield return new WaitForSeconds(delayBeforeStart);
@@ -68,10 +45,15 @@ public class TransitionEffects : MonoBehaviour
         }
 
         _transition.SetTransition(0);
+        _transition.SetActive(false);
+
     }
 
     private static void LazyGetRenderFeature()
     {
-        
+        if (_transition == null)
+        {
+            _transition = TransitionEffectUtility.FindTransitionEffectRenderFeature();
+        }
     }
 }

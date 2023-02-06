@@ -9,8 +9,6 @@ namespace Blooper.TransitionEffects
 {
     public class TransitionRenderFeature : ScriptableRendererFeature
     {
-
-
         [SerializeField] private TransitionEffectPassSettings _settings = new();
         private TransitionPass _pass;
 
@@ -32,6 +30,16 @@ namespace Blooper.TransitionEffects
         public void SetColor(Color color)
         {
             _settings.Color = color;
+        }
+
+        public void SetTransitionType(TransitionType transitionType)
+        {
+            _settings.transitionType = transitionType;
+        }
+
+        public void SetActive(bool active)
+        {
+            _settings.Active = active;
         }
     }
 }

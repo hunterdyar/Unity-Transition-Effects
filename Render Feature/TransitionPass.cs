@@ -8,13 +8,12 @@ namespace Blooper.TransitionEffects
 	{
 		private readonly TransitionEffectPassSettings _settings;
 		private Material _material;
-		private int _bufferID = Shader.PropertyToID("_TransitionBuffer");
 
-		//Cache property Ideas.
+		//Cache properties
+		private int _bufferID = Shader.PropertyToID("_TransitionBuffer");
 		private static readonly int ColorPropID = Shader.PropertyToID("_Color");
 		private static readonly int LerpPropID = Shader.PropertyToID("_Lerp");
 		private RenderTargetIdentifier _bufferRenderTex;
-
 		private TransitionType _currentType;
 
 		public TransitionPass(TransitionEffectPassSettings settings, TransitionPass _clone)
@@ -43,7 +42,7 @@ namespace Blooper.TransitionEffects
 		public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
 		{
 			//only render on top of the game. (ie: not reflections, scene view, VR, editor preview windows)
-			if (renderingData.cameraData.cameraType != CameraType.Game)
+			if (renderingData.cameraData.cameraType != CameraType.Game || !_settings.Active)
 			{
 				return;
 			}
