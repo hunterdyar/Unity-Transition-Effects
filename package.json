@@ -25,9 +25,9 @@
     "email": "me@hdyar.com",
     "url": "https://www.hdyar.com"
   },
-  "samples":{
+  "samples":[{
     "displayName": "Basic Usage Examples",
     "description": "Simple examples of how to use the package from scripts.",
     "path": "Samples~/Basic"
-  }
+  }]
 }
