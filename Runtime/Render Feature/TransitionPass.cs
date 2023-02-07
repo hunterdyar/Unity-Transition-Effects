@@ -20,7 +20,7 @@ namespace Blooper.TransitionEffects
 		public TransitionPass(TransitionEffectPassSettings settings, TransitionPass _clone)
 		{
 			_settings = settings;
-			renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
+			renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
 			_material = CoreUtils.CreateEngineMaterial(_settings.GetShaderName());
 			// ...
 		}
