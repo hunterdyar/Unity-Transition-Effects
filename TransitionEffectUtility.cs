@@ -8,9 +8,9 @@ namespace Blooper.TransitionEffects
 {
 	public class TransitionEffectUtility
 	{
-		public static TransitionRenderFeature FindTransitionEffectRenderFeature()
+		public static TransitionEffectRenderFeature FindTransitionEffectRenderFeature()
 		{
-			TransitionRenderFeature transition = null;
+			TransitionEffectRenderFeature transitionEffect = null;
 
 			//if universal render pipeline...
 			//if HDRP...
@@ -20,10 +20,10 @@ namespace Blooper.TransitionEffects
 			List<ScriptableRendererFeature> features = property.GetValue(renderer) as List<ScriptableRendererFeature>;
 			foreach (var feature in features)
 			{
-				if (feature is TransitionRenderFeature transitionFeature)
+				if (feature is TransitionEffectRenderFeature transitionFeature)
 				{
-					transition = transitionFeature;
-					return transition;
+					transitionEffect = transitionFeature;
+					return transitionEffect;
 				}
 			}
 

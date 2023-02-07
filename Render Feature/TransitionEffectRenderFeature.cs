@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Blooper.TransitionEffects
 {
-    public class TransitionRenderFeature : ScriptableRendererFeature
+    public class TransitionEffectRenderFeature : ScriptableRendererFeature
     {
         [SerializeField] private TransitionEffectPassSettings _settings = new();
         private TransitionPass _pass;

@@ -1,7 +1,57 @@
 # Unity-Transition-Effects
 URP Render Feature to do full-screen transition effects, like iris-wipes.
 
-### 1. Install the package
+### ## Setup
+
+### 1. Install The Package.
+
 Download the files and extract them into your assets folder. 
 I plan to make this a proper package-manager-managed package soon.
 
+### 2. Add The Render Feature
+
+First, Add the render feature to your URP Render settings. By Default for a 2D URP Project, these settings are Assets/Settings/Renderer2D.
+
+At the bottom of the Renderer settings object is an "Add Renderer Feature" button. Select "Transition Effect Render Feature".
+
+![](./Documentation/addRenderFeature.png)
+
+That's it. Now you're ready to use it!
+
+### Overview
+
+![Settings of the Render Feature](./Documentation/settings.png)
+
+The settings for the transition are stored right here,
+
+### 2. Usage.
+
+ The scriptable object settings are all editable at runtime. You can simply write a script that holds a reference to an serialized variable of type "TransitionEffectRenderFeature", and uses it's **SetTransition**, **SetColor**, **SetTransitionType**, and **SetActive** functions. You can assign the feature in the inspector from your renderer settings, and you're good to go. 
+
+It's good practice to set SetActive to false when not transitioning. The performance impact may be negligible, but why do extra render passes when we know we don't need to? You don't need to use my UseActive, RenderFeatures can be disabled from code at runtime, but I find this a hassle.
+
+But, there are a number of utility scripts to make your life easier, in the "Transition" class. The simplest example is as follows:
+
+```c#
+using Blooper.TransitionEffects;
+
+public class FadeInOnStart : MonoBehaviour
+{
+    void Start()
+    {
+        StartCoroutine(Transition.TransitionInToScene(TransitionType.Fade,0.1f, 0.85f, Color.black));
+    }
+}
+  
+   
+```
+
+## Problems
+
+### It does not go on top of the UI
+
+If you have the ability, you can change your Canvas from "Screen Space - Overlay" to "**Screen Space - Camera**" (then assign the appropriate camera). For many users, this will work fine; and now the effect will happen on top of the UI.
+
+If you have to use Overlay, then I can't help you. This is how the render features work. I don't really consider this a bug.
+
+ 
