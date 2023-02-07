@@ -15,6 +15,7 @@ namespace Blooper.TransitionEffects
 		private static readonly int LerpPropID = Shader.PropertyToID("_Lerp");
 		private RenderTargetIdentifier _bufferRenderTex;
 		private TransitionType _currentType;
+		private static readonly int TransitionTexturePropID = Shader.PropertyToID("_TransitionTexture");
 
 		public TransitionPass(TransitionEffectPassSettings settings, TransitionPass _clone)
 		{
@@ -60,6 +61,7 @@ namespace Blooper.TransitionEffects
 			cmd.Clear();
 			_material.SetColor(ColorPropID, _settings.Color);
 			_material.SetFloat(LerpPropID, _settings.transition);
+			_material.SetTexture(TransitionTexturePropID,_settings.Image);
 			Blit(cmd, target, _bufferRenderTex, _material, 0);
 			Blit(cmd, _bufferRenderTex, target);
 			context.ExecuteCommandBuffer(cmd);

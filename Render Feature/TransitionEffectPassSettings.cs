@@ -14,11 +14,14 @@ namespace Blooper.TransitionEffects
 		public float transition;
 		public Color Color; //Luckily, black is already a pretty good default value :p
 
+		public Texture2D Image;
 			// ...
 			public string GetShaderName()
 			{
 				switch (transitionType)
 				{
+					case TransitionType.Texture:
+						return "Hidden/BloopTextureTransitionEffect";
 					case TransitionType.VerticalWipe:
 						return "Hidden/BloopWipeVerticalTransitionEffect";
 					case TransitionType.CircleWipe:

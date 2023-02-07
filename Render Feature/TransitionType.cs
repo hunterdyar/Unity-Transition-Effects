@@ -2,9 +2,10 @@
 {
 	public enum TransitionType
 	{
+		Fade,
 		HorizontalWipe,
 		VerticalWipe,
 		CircleWipe,
-		Fade
+		Texture
 	}
 }
