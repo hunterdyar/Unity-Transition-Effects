@@ -1,5 +1,5 @@
 ﻿{
-  "name": "com.blooper.TransitionEffects",
+  "name": "com.Blooper.TransitionEffects",
   "version": "1.2.3",
   "displayName": "Transition Effects",
   "description": "URP Render Feature to add Full Screen Camera Transitions, like fading to black between scenes.",
