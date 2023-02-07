@@ -1,6 +1,8 @@
 # Unity-Transition-Effects
 URP Render Feature to do full-screen transition effects, like iris-wipes.
 
+![Examples of the Transitions](/Documentation/transitionEffect.gif)
+
 ## Setup
 
 ### 1. Install The Package.
