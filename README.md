@@ -7,9 +7,13 @@ URP Render Feature to do full-screen transition effects, like iris-wipes.
 
 ### 1. Install The Package.
 
-Download the files and extract them into your assets folder.
-You can delete the Documentation folder, which just contains the images for this readme.
-I plan to make this a proper package-manager-managed package soon.
+Go to Package Manager, and click "+", then "Add from git URL". Paste the following in:
+
+```
+https://github.com/hunterdyar/Unity-Transition-Effects.git
+```
+
+If you wish, click on the "Samples" tab and import the basic usage examples.
 
 ### 2. Add The Render Feature
 
