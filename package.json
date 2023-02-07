@@ -1,6 +1,6 @@
 ﻿{
   "name": "com.hdyar.transitioneffects",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "displayName": "Transition Effects",
   "description": "URP Render Feature to add Full Screen Camera Transitions, like fading to black between scenes.",
   "unity": "2021.3",
