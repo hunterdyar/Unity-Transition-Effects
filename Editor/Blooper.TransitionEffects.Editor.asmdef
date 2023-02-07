@@ -1,0 +1,18 @@
+{
+    "name": "Blooper.TransitionEffects.Editor",
+    "rootNamespace": "Blooper.TransitionEffects.Editor",
+    "references": [
+        "GUID:9c3e0efb3ab17ca42acff34f7b3427cc"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

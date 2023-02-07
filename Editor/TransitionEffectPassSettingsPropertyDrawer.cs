@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using Blooper.TransitionEffects;
 using UnityEditor;
 
-namespace TransitionEffects.Editor
+namespace Blooper.TransitionEffects.Editor
 {
-	[UnityEditor.CustomPropertyDrawer(typeof(TransitionEffectPassSettings))]
-	public class TransitionEffectPassSettingsPropertyDrawer : UnityEditor.PropertyDrawer
+	[CustomPropertyDrawer(typeof(TransitionEffectPassSettings))]
+	public class TransitionEffectPassSettingsPropertyDrawer : PropertyDrawer
 	{
 		private bool _showImage;
-		public override void OnGUI(Rect position, UnityEditor.SerializedProperty property, UnityEngine.GUIContent label)
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			
