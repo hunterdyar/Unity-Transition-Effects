@@ -57,7 +57,7 @@ public class FadeInOnStart : MonoBehaviour
    
 ```
 
-## Problems
+## Troubleshooting/Known Issues
 
 ### It does not go on top of the UI
 
@@ -65,4 +65,12 @@ If you have the ability, you can change your Canvas from "Screen Space - Overlay
 
 If you have to use Overlay, then I can't help you. This is how the render features work. I don't really consider this a bug.
 
- 
+### Post Processing effects appear on top of the transition.
+This is a tricky issue, and I'm researching for something better. Like the camera feature, it's not really a bug. Theyre called POST processing effects for a reason. In the meantime, There is a hacky workaround. Add a second Camera to the scene. Remove it's audio listener and be sure post processing is unchecked. Set it's Culling Mask to "Nothing", and it's Environment Background type to "Unititialized".
+Having a second camera in the scene is not ideal, and the effect is applied to both cameras (so it won't work well with the Fade transition). The camera only needs to be enabled during the transitions.
+
+I don't recommend this workaround, but instead just rolling with it. When the transition color is black, a lot of the post processing effects don't do much. The feature I need to fix this is apparently a [closed PR](https://github.com/Unity-Technologies/Graphics/pull/48) with no progress, but maybe there are other ways about it I just don't know about.
+
+### Low-Res Textures Look Bad
+The textures are getting sampled such that they are being stretched to fit the game window. You will want them to have the same aspect ratio as your final project. 
+Be sure to look at the filter mode in the import settings of the texture you want, and try different ones. Point will keep pixels sharp will bilinear will blur them, and either might be desired depending on your texture.
