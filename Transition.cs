@@ -14,7 +14,7 @@ public class Transition : MonoBehaviour
     public static IEnumerator TransitionOutToColor(TransitionType type, float delayBeforeStart, float time, Color color)
     {
         LazyGetRenderFeature();
-        _transitionEffect.SetActive(true);
+        _transitionEffect.SetTransitionActive(true);
         float t = 0;
         _transitionEffect.SetTransitionType(type);
         _transitionEffect.SetTransition(0);
@@ -35,7 +35,7 @@ public class Transition : MonoBehaviour
     public static IEnumerator TransitionInToScene(TransitionType type,float delayBeforeStart, float time, Color color)
     {
         LazyGetRenderFeature();
-        _transitionEffect.SetActive(true);
+        _transitionEffect.SetTransitionActive(true);
         _transitionEffect.SetTransition(1);
         _transitionEffect.SetTransitionType(type);
         _transitionEffect.SetColor(color);
@@ -49,7 +49,7 @@ public class Transition : MonoBehaviour
         }
 
         _transitionEffect.SetTransition(0);
-        _transitionEffect.SetActive(false);
+        _transitionEffect.SetTransitionActive(false);
 
     }
     
@@ -57,7 +57,7 @@ public class Transition : MonoBehaviour
     public static IEnumerator LoadSceneAfterTransition(string sceneName, TransitionType outType, float outTime, Color color)
     {
         LazyGetRenderFeature();
-        _transitionEffect.SetActive(true);
+        _transitionEffect.SetTransitionActive(true);
         _transitionEffect.SetColor(color);
         _transitionEffect.SetTransitionType(outType);
         _transitionEffect.SetTransition(0);
@@ -82,7 +82,7 @@ public class Transition : MonoBehaviour
         {
             yield return null;
         }
-        _transitionEffect.SetActive(false);
+        _transitionEffect.SetTransitionActive(false);
 
     }
     

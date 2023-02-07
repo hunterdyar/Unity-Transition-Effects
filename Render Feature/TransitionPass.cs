@@ -48,11 +48,11 @@ namespace Blooper.TransitionEffects
 				return;
 			}
 
-			if (_settings.transitionType != _currentType)
+			if (_settings.TransitionType != _currentType)
 			{
 				//update material being used. 
 				_material = CoreUtils.CreateEngineMaterial(_settings.GetShaderName());
-				_currentType = _settings.transitionType;
+				_currentType = _settings.TransitionType;
 			}
 
 			var target = renderingData.cameraData.renderer.cameraColorTarget;
@@ -60,7 +60,7 @@ namespace Blooper.TransitionEffects
 			CommandBuffer cmd = CommandBufferPool.Get();
 			cmd.Clear();
 			_material.SetColor(ColorPropID, _settings.Color);
-			_material.SetFloat(LerpPropID, _settings.transition);
+			_material.SetFloat(LerpPropID, _settings.Transition);
 			_material.SetTexture(TransitionTexturePropID,_settings.Image);
 			Blit(cmd, target, _bufferRenderTex, _material, 0);
 			Blit(cmd, _bufferRenderTex, target);

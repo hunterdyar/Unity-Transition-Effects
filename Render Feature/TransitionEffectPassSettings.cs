@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Blooper.TransitionEffects
 {
@@ -9,16 +10,16 @@ namespace Blooper.TransitionEffects
 		[HideInInspector] public FilterMode FilterMode = FilterMode.Bilinear; //In my testing, this doesn't have an effect. Because we are doing it at screen-resolution, by definition, there's no sampling anyway.
 		
 		public bool Active = true;
-		public TransitionType transitionType;
-		[Tooltip("0 has The scene completely visible. 1 Has the transition effect completely obscuring the scene.")] [Range(0, 1)]
-		public float transition;
+		[FormerlySerializedAs("transitionType")] public TransitionType TransitionType;
+		[FormerlySerializedAs("transition")] [Tooltip("0 has The scene completely visible. 1 Has the transition effect completely obscuring the scene.")] [Range(0, 1)]
+		public float Transition;
 		public Color Color; //Luckily, black is already a pretty good default value :p
 
 		public Texture2D Image;
 			// ...
 			public string GetShaderName()
 			{
-				switch (transitionType)
+				switch (TransitionType)
 				{
 					case TransitionType.Texture:
 						return "Hidden/BloopTextureTransitionEffect";
@@ -33,6 +34,13 @@ namespace Blooper.TransitionEffects
 						return "Hidden/BloopWipeTransitionEffect";
 				}
 			}
-		
+
+			public void CopyFrom(TransitionEffectPassSettings settings)
+			{
+				this.Active = settings.Active;
+				this.TransitionType = settings.TransitionType;
+				this.Transition = settings.Transition;
+				this.Color = settings.Color;
+			}
 	}
 }
