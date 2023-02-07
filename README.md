@@ -1,7 +1,7 @@
 # Unity-Transition-Effects
 URP Render Feature to do full-screen transition effects, like iris-wipes.
 
-![Examples of the Transitions](/Documentation/transitionEffect.gif)
+![Examples of the Transitions](./Documentation~/transitionEffect.gif)
 
 ## Setup
 
@@ -21,13 +21,13 @@ First, Add the render feature to your URP Render settings. By Default for a 2D U
 
 At the bottom of the Renderer settings object is an "Add Renderer Feature" button. Select "Transition Effect Render Feature".
 
-![](./Documentation/addRenderFeature.png)
+![](./Documentation~/addRenderFeature.png)
 
 That's it. Now you're ready to use it!
 
 ### Settings Overview
 
-![Settings of the Render Feature](./Documentation/settings.png)
+![Settings of the Render Feature](./Documentation~/settings.png)
 
 The settings for the transition are stored right here.
 - **Active** must be checked for the effect to be on. It's a convenient way to bypass an extra render pass when not needed, to minimize overhead. My utility coroutines turn this on and off, so be aware you may need to set it enabled if using your own code in addition to mine.
