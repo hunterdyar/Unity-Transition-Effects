@@ -51,11 +51,14 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = _Color;
-                diag = length(_ScreenParams.xy);
+                //find new screenparams if center was center of the rect we are getting the diagonal for.
+                fixed2 center = lerp(fixed2(0.5,0.5),_Center,_Lerp);
+                diag = length((_ScreenParams.xy))/2;
                 //Wipe
-                //Normalize to width and height to account for aspect ratio. Move UV's by .5 to center it.
-                //Use diagonal/2 for the radius to work on regardless of aspect ratio, 0->1. Because math.
-                if(length(float2((_ScreenParams.x*(i.uv.x-_Center.x)),(_ScreenParams.y*(i.uv.y-_Center.y)))) < ((1-_Lerp)*diag/2))
+                //Normalize to width and height to account for aspect ratio.
+                //Use diagonal/2 for the radius to work on regardless of aspect ratio, 0->1. Because rect inscribed in circle, doesn't matter if rect is vert or horiz.
+                
+                if(length(float2((_ScreenParams.x*(i.uv.x-center.x)),(_ScreenParams.y*(i.uv.y-center.y)))) < ((1-_Lerp)*diag))
                 {
                     col = tex2D(_MainTex, i.uv);
                 }
