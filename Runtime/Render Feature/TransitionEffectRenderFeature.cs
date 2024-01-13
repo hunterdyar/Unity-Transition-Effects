@@ -38,6 +38,14 @@ namespace Blooper.TransitionEffects
             _settings.Color = color;
         }
 
+        /// <summary>
+        /// Set the Center property of the transition. In UV space (Normalized O to 1 width and height).
+        /// </summary>
+        public void SetCenter(Vector2 center)
+        {
+            _settings.Center = center;
+        }
+
         public void SetTransitionType(TransitionType transitionType)
         {
             _settings.TransitionType = transitionType;

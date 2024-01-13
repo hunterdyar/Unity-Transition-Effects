@@ -27,5 +27,11 @@ namespace Blooper.TransitionEffects
 			Debug.LogWarning("You need to add a Transition Render Feature to the current render pipeline settings.");
 			return null;
 		}
+
+		public static Vector2 WorldSpaceToUV(Camera camera, Vector3 worldPos)
+		{
+			var screen = camera.WorldToScreenPoint(worldPos);
+			return new Vector2(screen.x / (float)camera.pixelWidth, screen.y / (float)camera.pixelHeight);
+		}
 	}
 }

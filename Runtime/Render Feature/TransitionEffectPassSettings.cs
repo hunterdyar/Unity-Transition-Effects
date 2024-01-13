@@ -14,7 +14,7 @@ namespace Blooper.TransitionEffects
 		[FormerlySerializedAs("transition")] [Tooltip("0 has The scene completely visible. 1 Has the transition effect completely obscuring the scene.")] [Range(0, 1)]
 		public float Transition;
 		public Color Color; //Luckily, black is already a pretty good default value :p
-
+		public Vector2 Center = new Vector2(0.5f,0.5f);
 		public Texture2D Image;
 			// ...
 			public string GetShaderName()
@@ -41,6 +41,7 @@ namespace Blooper.TransitionEffects
 				this.TransitionType = settings.TransitionType;
 				this.Transition = settings.Transition;
 				this.Color = settings.Color;
+				this.Center = settings.Center;
 			}
 	}
 }
