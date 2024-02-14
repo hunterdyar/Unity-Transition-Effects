@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Lerp ("Lerp",float) = 0
+        _Center ("Center",Vector) = (0.5,0.5,0,0)
         _Color ("Color",Color) = (0,0,0,0)
     }
     SubShader
@@ -43,17 +44,21 @@
             sampler2D _MainTex;
             float _Lerp;
             fixed4 _Color;
+            fixed2 _Center;
             
             float diag;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = _Color;
-                diag = length(_ScreenParams.xy);
+                //find new screenparams if center was center of the rect we are getting the diagonal for.
+                fixed2 center = lerp(fixed2(0.5,0.5),_Center,_Lerp);
+                diag = length((_ScreenParams.xy))/2;
                 //Wipe
-                //Normalize to width and height to account for aspect ratio. Move UV's by .5 to center it.
-                //Use diagonal/2 for the radius to work on regardless of aspect ratio, 0->1. Because math.
-                if(length(float2((_ScreenParams.x*(i.uv.x-0.5)),(_ScreenParams.y*(i.uv.y-0.5)))) < ((1-_Lerp)*diag/2))
+                //Normalize to width and height to account for aspect ratio.
+                //Use diagonal/2 for the radius to work on regardless of aspect ratio, 0->1. Because rect inscribed in circle, doesn't matter if rect is vert or horiz.
+                
+                if(length(float2((_ScreenParams.x*(i.uv.x-center.x)),(_ScreenParams.y*(i.uv.y-center.y)))) < ((1-_Lerp)*diag))
                 {
                     col = tex2D(_MainTex, i.uv);
                 }
