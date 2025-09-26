@@ -11,7 +11,7 @@ namespace Blooper.TransitionEffects
 
         public override void Create()
         {
-            _pass = new TransitionPass(_settings, _pass);
+            _pass = new TransitionPass(_settings);
         }
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)

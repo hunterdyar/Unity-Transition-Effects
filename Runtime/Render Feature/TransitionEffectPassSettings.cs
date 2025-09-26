@@ -43,5 +43,15 @@ namespace Blooper.TransitionEffects
 				this.Color = settings.Color;
 				this.Center = settings.Center;
 			}
+
+			public static TransitionEffectPassSettings GetDefault()
+			{
+				return new TransitionEffectPassSettings()
+				{
+					Active = true,
+					Transition = 0.5f,
+					Color = Color.black,
+				};
+			}
 	}
 }
