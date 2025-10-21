@@ -15,12 +15,15 @@
         Pass
         {
             Name "Transition Effect Pass"
+            Cull Off
+            ZWrite Off
+            ZTest Always
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag
+            #pragma fragment Fragment
 
             #include "UnityCG.cginc"
-
+            
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -48,7 +51,7 @@
             
             float diag;
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 Fragment (v2f i) : SV_Target
             {
                 fixed4 col = _Color;
                 //find new screenparams if center was center of the rect we are getting the diagonal for.

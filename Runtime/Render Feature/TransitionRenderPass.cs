@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace Blooper.TransitionEffects
 {
-	public class TransitionPass :ScriptableRenderPass
+	public class TransitionRenderPass : ScriptableRenderPass
 	{
 		//Cache properties
 		private static readonly int ColorPropID = Shader.PropertyToID("_Color");
@@ -21,13 +21,15 @@ namespace Blooper.TransitionEffects
 		internal Material _material;
 		public TransitionEffectPassSettings _settings;
 
-		public TransitionPass(TransitionEffectPassSettings settings)
+		public TransitionRenderPass(TransitionEffectPassSettings settings)
 		{
 			_settings = settings;
 		}
+		
 
 		private void UpdateMaterialSettings()
 		{
+			
 			if (_settings == null)
 			{
 				_settings = TransitionEffectPassSettings.GetDefault();
@@ -35,6 +37,11 @@ namespace Blooper.TransitionEffects
 			if (_currentType != _settings.TransitionType || _material == null)
 			{
 				//update material being used. 
+				if (_material != null)
+				{
+					CoreUtils.Destroy(_material);
+				}
+				
 				_material = CoreUtils.CreateEngineMaterial(_settings.GetShaderName());
 				_currentType = _settings.TransitionType;
 			}
@@ -43,27 +50,34 @@ namespace Blooper.TransitionEffects
 			_material.SetFloat(LerpPropID,_settings.Transition);
 			_material.SetTexture(TransitionTexturePropID, _settings.Image);
 			_material.SetVector(CenterPropID, _settings.Center);
+			
+			
 		}
 		//In the RecordRenderGraph method, declare render pass inputs and outputs, but do not add commands to command buffers.
 		public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
 		{
+			if (!_settings.Active)
+			{
+				return;
+			}
 			using (var builder = renderGraph.AddRasterRenderPass<TransitionPassData>(passName, out var passData))
 			{
 				UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
-				passData.SourceTexture = resourceData.activeColorTexture;
-
 				UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
 
-				passData.SourceTexture = resourceData.activeColorTexture;
 				
 				var transitionTexDesc = resourceData.activeColorTexture.GetDescriptor(renderGraph);
 				transitionTexDesc.name = "_TransitionEffectTexture";
 				transitionTexDesc.depthBufferBits = 0;
-				passData.DestinationTexture = renderGraph.CreateTexture(transitionTexDesc);
+				// passData.SourceTexture = renderGraph.CreateTexture(transitionTexDesc);
 
+				passData.SourceTexture = resourceData.activeColorTexture;
+				passData.DestinationTexture = resourceData.activeColorTexture;
+				
 				//Update Material settings?
 				UpdateMaterialSettings();
-				passData.Material = _material;
+				// passData.Material = _material;
+				passData.Material = Blitter.GetBlitMaterial(passData.SourceTexture.GetDescriptor(renderGraph).dimension);
 
 				if (!passData.SourceTexture.IsValid() || !passData.DestinationTexture.IsValid())
 				{
@@ -72,8 +86,7 @@ namespace Blooper.TransitionEffects
 				}
 
 				builder.UseTexture(passData.SourceTexture, AccessFlags.ReadWrite);
-				builder.UseTexture(passData.DestinationTexture, AccessFlags.ReadWrite);
-				
+
 				//debug to prevent removing this if it doesn't do shit
 				builder.AllowPassCulling(false);
 				
@@ -83,16 +96,22 @@ namespace Blooper.TransitionEffects
 
 			// // The AddBlitPass method adds a vertical blur render graph pass that blits from the source texture (camera color in this case) to the destination texture using the first shader pass (the shader pass is defined in the last parameter).
 			// RenderGraphUtils.BlitMaterialParameters transition = new(src, dst, _material, 0);
-			// renderGraph.AddBlitPass(transition, TransitionPassName);
+			 // renderGraph.AddBlitPass(transition, TransitionPassName);
 			// RenderGraphUtils.BlitMaterialParameters copy = new(dst, src, null , 1);
 			// renderGraph.AddBlitPass(copy, TransitionPassName+"-copy");
 		}
 
+		public void ReleaseTargets()
+		{
+			//handle.release(()
+		}
+
 		static void ExecutePass(TransitionPassData passData, RasterGraphContext context)
 		{
-			// Blitter.BlitCameraTexture(context.cmd, passData.SourceTexture, passData.DestinationTexture, passData.Material, 0);
-			Blitter.BlitTexture(context.cmd, passData.SourceTexture, new Vector4(1, 1, 0, 0), passData.Material, 0);
-			
+			Blitter.BlitTexture(context.cmd, passData.SourceTexture, new Vector4(1,1,0,0), passData.Material, 0);
+
+			Blitter.BlitTexture(context.cmd, context.defaultResources.whiteTexture, new Vector4(1, 1, 0, 0), passData.Material, 0);
+			//Blitter.BlitTexture(context.cmd, passData.SourceTexture, new Vector4(1, 1, 0, 0), passData.Material, 0);
 		}
 	}
 }

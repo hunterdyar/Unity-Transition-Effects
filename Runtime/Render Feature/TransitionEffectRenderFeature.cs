@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 
@@ -7,15 +8,27 @@ namespace Blooper.TransitionEffects
     public class TransitionEffectRenderFeature : ScriptableRendererFeature
     {
         [SerializeField] private TransitionEffectPassSettings _settings = new();
-        private TransitionPass _pass;
+        private TransitionRenderPass _pass;
 
         public override void Create()
         {
-            _pass = new TransitionPass(_settings);
+            _pass = new TransitionRenderPass(_settings);
+            _pass.renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            CoreUtils.Destroy(_pass._material);
+            base.Dispose(disposing);
         }
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
+            if (renderingData.cameraData.isPreviewCamera)
+            {
+                return;
+            }
+            _pass.ConfigureInput(ScriptableRenderPassInput.Color);
             renderer.EnqueuePass(_pass);
         }
 

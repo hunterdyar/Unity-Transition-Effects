@@ -8,6 +8,7 @@ Shader "Hidden/BloopWipeTransitionEffect"
     }
     SubShader
     {
+        Tags{ "RenderPipeline" = "UniversalPipeline" }
         // No culling or depth
         Cull Off ZWrite Off ZTest Always
 
@@ -46,6 +47,7 @@ Shader "Hidden/BloopWipeTransitionEffect"
 
             fixed4 frag (v2f i) : SV_Target
             {
+              //  return fixed4(1,1,1,1);
                 fixed4 col = _Color;
 
                 //Wipe
